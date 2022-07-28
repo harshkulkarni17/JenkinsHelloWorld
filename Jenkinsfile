@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Parallel Execution'){
             steps{
-                Parallel (
+                parallel (
                     Build: {
                         echo "In Build Stage"
                     },

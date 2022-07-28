@@ -16,5 +16,11 @@ pipeline {
                 echo "Deploy Stage" 
             }
         }
+        stage('User Input'){
+            steps{
+                input ("Do you want to run process further?")
+                echo "Last Stage - User Input Done"
+            }
+        }
     }
 }

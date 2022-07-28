@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Parallel Execution'){
             steps{
-                Parallel
+                Parallel (
                     Build: {
                         echo "In Build Stage"
                     },
@@ -13,6 +13,7 @@ pipeline {
                     Deploy: {
                         echo "In Deploy stage"
                     }
+                )    
             }
         }
         stage('User Input'){

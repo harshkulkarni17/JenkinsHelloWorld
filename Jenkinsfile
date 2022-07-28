@@ -1,35 +1,25 @@
 pipeline {
     agent any 
     stages {
-        stage('Build') { 
-            steps {
-                echo "Build Stage" 
-            }
-        }
-        stage('Test') { 
-            steps {
-                echo "Test Stage" 
-            }
-        }
-        stage('Deploy') { 
-            steps {
-                echo "Deploy Stage" 
+        stage('Parallel Execution'){
+            steps{
+                Parallel{
+                    Build: {
+                        echo "In Build Stage"
+                    },
+                    Test: {
+                        echo "In Test Stage"
+                    },
+                    Deploy: {
+                        echo "In Deploy stage"
+                    }
+                }
             }
         }
         stage('User Input'){
             steps{
                 input ("Do you want to run process further?")
                 echo "Last Stage - User Input Done"
-            }
-        }
-        stage ('Email'){
-            steps{
-                mail body:"${env.JOB_NAME} - Build#${env.BUILD_NUMBER} - ${currentBuild.currentResult}\n\nCheck console output at ${env.BUILD_URL} to view the results", subject:"${env.JOB_NAME} - Build#${env.BUILD_NUMBER} - ${currentBuild.currentResult}!!", to:'hpkulkarni1705@gmail.com'
-            }
-        }
-        stage('Email by Pipeline Syntax'){
-            steps{
-                mail bcc: '', body: 'This is a demo mail for testing the declarative pipeline', cc: '', from: '', replyTo: '', subject: 'Jenkins Declarative Pipeline', to: 'hpkulkarni1705@gmail.com'
             }
         }
     }
